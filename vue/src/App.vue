@@ -1,11 +1,12 @@
 <script setup>
 //import obtenerCitas from './components/obtenerCitas.vue';
-import dinerito from './components/gastosYingresos.vue'
+//import dinerito from './components/gastosYingresos.vue'
+import cliente from './components/agregarCliente.vue'
 </script>
 
 <template>
  
-  <dinerito />
+  <cliente />
 </template>
 
 <style scoped>
