@@ -35,7 +35,6 @@ methods: {
         console.log(json);
         this.estado = json
         if(this.estado.ok){
-            
                 document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
             }else{
                 var comprobanteCorrecto =  document.getElementById("telefonoCorrecto");
