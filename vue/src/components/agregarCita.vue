@@ -5,14 +5,26 @@ export default {
 data(){
 
     return{servicios:"",telefono:"",hora:"",fecha:"",servicioId:"",telefonoC:"",comprobarCitaAntes:"",
-    idClienteBusqueda: ""}
+    idClienteBusqueda: "",proveedoresLista:"",proveedorId: "",precioP:"",fechaP:"",
+    descripcionP:"",agregarPobjeto:""}
 },
 
 created(){
 //this.getCitas()
 this.getServicios()
+this.getProveedores()
 },
 methods: {
+
+    getProveedores(){
+      fetch("http://localhost:8000/mostrarProveedoresLista")
+    .then((response) => response.json())
+    .then((json) => {
+        //console.log(json.categorias);
+        this.proveedoresLista = json.Proveedores;
+        console.log(this.proveedoresLista)
+    })
+    },
 
     getCitas(){
     fetch("http://localhost:8000/restaurant")
@@ -30,6 +42,16 @@ methods: {
             this.servicios = json.servicios
             console.log(this.servicios)
         })
+    },
+    async guardarGasto(idProveedor,descripcion,precio,fecha){
+      try{
+         const response = await fetch("http://localhost:8000/agregarGastos/"+idProveedor+"/"+descripcion+"/"+precio+"/"+fecha)
+            const json = await response.json()
+            this.agregarPobjeto = json
+            console.log(this.agregarPobjeto)
+        }catch(error){
+            console.error("error al intentar agregar gasto", error)
+        }
     },
    async comprobarCliente(telefono){
         try {
@@ -77,23 +99,36 @@ methods: {
     },
     async agregarCita(numero,hora,fecha){
         console.log(numero+ " "+ hora + " " + fecha +  " " +  this.servicioId)
-        await this.comprobarCliente(numero)
-        console.log(this.telefonoC.ok)
-        if(this.telefonoC.ok){ 
-            if(numero != "" && hora != "" && fecha != "" && this.servicioId > 0){
-               await this.comprobarCitaPrevia(hora,fecha);
-                if(this.comprobarCitaAntes.ok){
-                    await this.buscarIdCliente(numero)
-                    await this.anyadirCita(this.idClienteBusqueda,this.servicioId,hora,fecha)
+        if(numero.length == 9){
+            await this.comprobarCliente(numero)
+            console.log(this.telefonoC.ok)
+            if(this.telefonoC.ok){ 
+                if(numero != "" && hora != "" && fecha != "" && this.servicioId > 0){
+                   await this.comprobarCitaPrevia(hora,fecha);
+                    if(this.comprobarCitaAntes.ok){
+                        await this.buscarIdCliente(numero)
+                        await this.anyadirCita(this.idClienteBusqueda,this.servicioId,hora,fecha)
+                    }else{
+                        alert(this.comprobarCitaAntes.descripcion)
+                    }
                 }else{
-                    alert(this.comprobarCitaAntes.descripcion)
+                    alert("tienes que agregar todos los campos")
                 }
             }else{
-                alert("tienes que agregar todos los campos")
+                alert(this.telefonoC.descripcion);
             }
         }else{
-            alert(this.telefonoC.descripcion);
+            alert("el telefono tiene que ser de 9 digitos")
         }
+    },
+    async agregarProveedor(precio,fecha,descripcion){
+      console.log(precio +" "+fecha+" "+descripcion + " " +this.proveedorId)
+      if(precio != "" && fecha != "" && descripcion != "" && this.proveedorId >0){
+         await this.guardarGasto(this.proveedorId,descripcion,precio.toFixed(2),fecha)
+         alert("se agrego con exito")
+      }else{
+        alert("tienes algun campo vacio")
+      }
     },
 
 }  
@@ -102,7 +137,7 @@ methods: {
 
 <template>
 <div>
-    <h2>Crear Evento</h2>
+    <h2>Agregar Citas</h2>
     <form @submit.prevent="submitForm">
       <div>
         <label for="numero">Telefono:</label>
@@ -124,6 +159,30 @@ methods: {
         <input type="date" id="fecha" v-model="fecha" required>
       </div>
       <button type="submit" class="btn btn-sm btn-warning"  @click="agregarCita(telefono,hora,fecha)">Guardar</button>
+    </form>
+  </div>
+  <div>
+    <h2>Agregar Gastos</h2>
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="tipo">Proveedor:</label>
+        <select id="tipo" v-model="proveedorId" required>
+          <option v-for="proveedor in proveedoresLista" :key="proveedor.id" :value="proveedor.id">
+            {{ proveedor.nombre }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="Precio">Precio:</label>
+          <input type="number" id="numero" v-model="precioP" required>
+        </div>
+        <div>
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fechaP" v-model="fechaP" required>
+        </div>
+        <div>
+          <textarea name="descripcion" id="proveedorD" cols="50" rows="2" maxlength="50" placeholder="Descripcion aquí" v-model="descripcionP"></textarea>
+        </div>
+      <button type="submit" class="btn btn-sm btn-warning"  @click="agregarProveedor(precioP,fechaP,descripcionP)">Guardar</button>
     </form>
   </div>
 
