@@ -2,12 +2,13 @@
 //import obtenerCitas from './components/obtenerCitas.vue';
 //import dinerito from './components/gastosYingresos.vue'
 //import cliente from './components/agregarCliente.vue'
-import citas from './components/agregarCita.vue'
+//import citas from './components/agregarCita.vue'
+import tablasGastosIngresos from './components/mostrarGastosYBeneficios.vue'
 </script>
 
 <template>
  
-  <citas />
+  <tablasGastosIngresos/>
 </template>
 
 <style scoped>
