@@ -1,5 +1,7 @@
 <script>
 import { ref } from 'vue'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
 
@@ -42,7 +44,14 @@ export default {
         this.ponerTabla(this.estado.citasEncontradas)
         return json;
       } else{
-         alert("no hay citas")
+        const customId = 'custom-id';
+        toast.warning("No hay citas", {
+          autoClose: 4000,
+          limit: 2,
+          toastId: customId,
+          pauseOnFocusLoss: false,
+          transition: toast.TRANSITIONS.FLIP,
+        });
          var recogerTabla =  document.getElementById("tablaCitas").innerHTML = ""
          return json;
       }
@@ -58,16 +67,21 @@ export default {
       recogerTabla.innerHTML = ""
 
       var tabla = document.createElement("table")
+      tabla.className = "table table-striped"
       var thead = document.createElement("thead")
       var encabezadoNombre =  document.createElement("tr")
 
       var nombrePersona = document.createElement("th")
+      nombrePersona.setAttribute("scope","col")
       nombrePersona.textContent = "Nombre y Apellidos"
       var nombreTipo = document.createElement("th")
+      nombreTipo.setAttribute("scope","col")
       nombreTipo.textContent = document.textContent = "Tipo de Corte"
       var hora =  document.createElement("th")
+      hora.setAttribute("scope","col")
       hora.textContent = document.textContent =  "Hora"
       var fecha = document.createElement("th")
+      fecha.setAttribute("scope","col")
       fecha.textContent =  "precio"
 
       encabezadoNombre.appendChild(nombrePersona)
@@ -121,8 +135,12 @@ export default {
 <template>
   
   <div>
-    <input type="date" id="fecha" name="fecha-poner" v-model="fechaGuardada">
-    <button type="submit" class="btn btn-sm btn-warning" @click="getCitas2(fechaGuardada)">Buscar </button>
+    <div id="divFecha">
+      <label for="">Fecha para citas</label>
+      <br>
+      <input type="date"  id="fecha" class="form-control" name="fecha-poner" v-model="fechaGuardada">
+      <button type="submit" class="btn btn-sm btn-primary" @click="getCitas2(fechaGuardada)">Buscar </button>
+    </div>
   </div>
   <div id="tablaCitas"> </div>
 </template>
@@ -131,4 +149,26 @@ export default {
 .read-the-docs {
   color: #888;
 }
+
+#tablaCitas{
+  width: 70vw;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center; 
+}
+
+#divFecha{
+  padding: 1rem;
+  text-align: center; 
+  margin: 0 auto;
+}
+
+#fecha{
+  width: 200px;
+  margin: 0 auto;
+  display: inline-block !important;
+}
+
 </style>
