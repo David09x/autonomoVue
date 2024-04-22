@@ -67,7 +67,6 @@ methods: {
                  toast.info("total es " + (this.beneficio-this.gastos), {
                     position: toast.POSITION.TOP_CENTER, // Para mostrar el toast desde arriba
                     autoClose: false, // Para que no se cierre automáticamente
-                    closeButton: false, // Para ocultar el botón de cierre
                     hideProgressBar: true, // Para ocultar la barra de progreso
                     toastId: customId,
                     pauseOnFocusLoss: false,
