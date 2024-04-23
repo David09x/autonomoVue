@@ -13,10 +13,11 @@ export default {
     }
   },
   created(){
-    this.getCitas()
+    //this.getCitas()
   },
+
   methods: {
-    getCitas(){
+   /* getCitas(){
       fetch("http://localhost:8000/restaurant")
       .then((response) => response.json())
       .then((json) => {
@@ -29,7 +30,7 @@ export default {
       //console.log(idClientes);
 
       })
-    },
+    },*/
     getCitas2(fechaDada){
       console.log(fechaDada)
       console.log("http://localhost:8000/mostrarCitasFecha/" + fechaDada)
@@ -60,6 +61,25 @@ export default {
       
     },
 
+    borrarCita(id,nombre){
+      console.log(id)
+      if(confirm("Estas seguro de borrar la cita de " + nombre)){
+        fetch("http://localhost:8000/borrarCita/"+ id)
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          const customId = 'custom-id';
+          toast.success("Se borro la cita correctamente", {
+              autoClose: 4000,
+              limit: 2,
+              toastId: customId,
+              pauseOnFocusLoss: false,
+              transition: toast.TRANSITIONS.FLIP,
+            });
+          this.getCitas2(this.fechaGuardada)
+        })
+      }
+    },
     ponerTabla(datos){
 
       var recogerTabla =  document.getElementById("tablaCitas")
@@ -107,11 +127,25 @@ export default {
           hora.textContent =  datos[i]['hora']
           var precio= document.createElement("td");
           precio.textContent  =  datos[i]['precio']
+          var boton1 = document.createElement("td");
+          var boton  = document.createElement("button")
+          boton.textContent = "Borrar"
+          boton.classList.add("btn","btn-danger");
+          boton1.appendChild(boton)
+          
+         
+          boton.setAttribute("cita-id", datos[i]["id"]);
+
+          
+          boton.addEventListener("click", () => {
+              this.borrarCita(datos[i]["id"],datos[i]['nombre']);
+          });
 
           fila.appendChild(nombre)
           fila.appendChild(tipo)
           fila.appendChild(hora)
           fila.appendChild(precio)
+          fila.appendChild(boton1)
 
           tbody.appendChild(fila)
         }
