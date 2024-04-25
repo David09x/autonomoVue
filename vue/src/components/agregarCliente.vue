@@ -38,7 +38,16 @@ methods: {
         this.estado = json
         const customId = 'custom-id'
         if(this.estado.ok){
-                document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
+                //document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
+                toast.success(this.estado.descripcion, {
+                     autoClose: 4000,
+                    autoClose: false, // Para que no se cierre automáticamente
+                    hideProgressBar: true, // Para ocultar la barra de progreso
+                    toastId: customId,
+                    pauseOnFocusLoss: false,
+                    transition: toast.TRANSITIONS.FLIP,
+                });
+          
             }else{
                 var comprobanteCorrecto =  document.getElementById("telefonoCorrecto");
                 if(comprobanteCorrecto == null){
@@ -76,8 +85,17 @@ methods: {
             this.estadoP = json
             
             if(this.estadoP.ok){
-                
-                    document.getElementById("todoCorrectoP").innerHTML = this.estadoP.descripcion
+                const customId = 'custom-id'
+                    //document.getElementById("todoCorrectoP").innerHTML = this.estadoP.descripcion
+                    toast.success(this.estadoP.descripcion, {
+                        autoClose: false, // Para que no se cierre automáticamente
+                        hideProgressBar: true, // Para ocultar la barra de progreso
+                        toastId: customId,
+                        pauseOnFocusLoss: false,
+                        transition: toast.TRANSITIONS.FLIP,
+                    });
+                    document.getElementById("telefonoCorrecto").innerHTML = "proveedor agregado"
+               
                 }else{
                     var comprobanteCorrecto =  document.getElementById("telefonoCorrectoP");
                     if(comprobanteCorrecto == null){
@@ -132,12 +150,19 @@ methods: {
               pauseOnFocusLoss: false,
               transition: toast.TRANSITIONS.FLIP,
             });
-    
-            //document.getElementById("telefonoIncorrecto").innerHTML = "el telefono debe ser de 9 digitos y numerico"
+            document.getElementById("nombreC").value = ""
+            document.getElementById("telefonoC").value = ""
+            document.getElementById("telefonoIncorrecto").innerHTML = "el telefono debe ser de 9 digitos y numerico"
          }else{
-            document.getElementById("telefonoIncorrecto").innerHTML = ""
-            document.getElementById("todoCorrectoP").innerHTML = ""
-            this.agregarCliente(nombre,telefono);
+             document.getElementById("telefonoIncorrecto").innerHTML = ""
+             document.getElementById("todoCorrecto").innerHTML = ""
+             this.agregarCliente(nombre,telefono);
+             document.getElementById("todoCorrecto").innerHTML = "se agrego el cliente"
+             setTimeout(function() {
+                document.getElementById("todoCorrecto").innerHTML = "";
+            }, 1500); // 1200 milisegundos = 1,2 segundos
+            this.nombreCliente = ""
+            this.telefonoCliente = ""
         
          }
        }
@@ -169,6 +194,12 @@ methods: {
             document.getElementById("telefonoIncorrectoP").innerHTML = ""
             document.getElementById("todoCorrectoP").innerHTML = ""
             this.agregarProveedor(nombre,telefono);
+            document.getElementById("todoCorrectoP").innerHTML = "se agrego el proveedor"
+             setTimeout(function() {
+                document.getElementById("todoCorrectoP").innerHTML = "";
+            }, 1500); // 1200 milisegundos = 1,2 segundos
+            this.nombreProveedor = ""
+            this.telefonoProveedor =""
         
          }
        }
@@ -181,49 +212,57 @@ methods: {
 
 <template>
   
-  <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div>
-                <h1>Agregar Cliente</h1>
-                <div id="cajaGeneral" class="rounded border border-primary">
-                    <label id="labels" for="">Nombre Cliente</label>
-                    <br>
-                    <input type="text" id="nombreC" class="form-control" v-model="nombreCliente" required>
-                    <br>
-                    <label id="labels" for="">Telefono Cliente</label>
-                    <br>
-                    <input type="text" id="telefonoC" class="form-control" v-model="telefonoCliente" required>
-                    
-                    <button type="submit" id="botoncito"  class="btn btn-sm btn-primary" @click="comprobacionAgregarCliente(nombreCliente,telefonoCliente)">Enviar</button>
-                    <div>
-                        <span id="telefonoIncorrecto" style="color:red"></span>
-                        <span id="todoCorrecto" style="color:green"></span>
+  <div class="container px-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="row">
+                <!-- Columna para Agregar Cliente -->
+                <div class="col-md-6">
+                    <div class="card border-0 rounded-3 shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <h1 class="fw-light">Agregar Cliente</h1>
+                            </div>
+                            <div>
+                                <label for="nombreC" class="form-label">Nombre Cliente:</label>
+                                <input type="text" id="nombreC" class="form-control" v-model="nombreCliente" required>
+                                <label for="telefonoC" class="form-label mt-3">Telefono Cliente:</label>
+                                <input type="text" id="telefonoC" class="form-control" v-model="telefonoCliente" required>
+                                <button type="submit" class="btn btn-primary mt-3" @click="comprobacionAgregarCliente(nombreCliente,telefonoCliente)">Enviar</button>
+                                <div>
+                                    <span id="telefonoIncorrecto" style="color:red"></span>
+                                    <span id="todoCorrecto" style="color:green"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6">
-            <div >
-                <h1>Agregar Proveedores</h1>
-                <div id="cajaGeneral" class="rounded border border-primary">
-                    <label id="labels" for="">Nombre Proveedor</label>
-                    <br>
-                    <input type="text" id="nombreP" class="form-control" v-model="nombreProveedor" required>
-                    <br>
-                    <label id="labels" for="">Telefono Proveedor</label>
-                    <br>
-                    <input type="text" id="telefonoP" class="form-control" v-model="telefonoProveedor" required>
-                    <button type="submit" id="botoncito" class="btn btn-sm btn-primary" @click="comprobacionAgregarProveedor(nombreProveedor,telefonoProveedor)">Enviar</button>
-                    <div>
-                        <span id="telefonoIncorrectoP" style="color:red"></span>
-                        <span id="todoCorrectoP" style="color:green"></span>
+                <!-- Columna para Agregar Proveedores -->
+                <div class="col-md-6 mt-5 mt-md-0">
+                    <div class="card border-0 rounded-3 shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <h1 class="fw-light">Agregar Proveedores</h1>
+                            </div>
+                            <div>
+                                <label for="nombreP" class="form-label">Nombre Proveedor:</label>
+                                <input type="text" id="nombreP" class="form-control" v-model="nombreProveedor" required>
+                                <label for="telefonoP" class="form-label mt-3">Telefono Proveedor:</label>
+                                <input type="text" id="telefonoP" class="form-control" v-model="telefonoProveedor" required>
+                                <button type="submit" class="btn btn-primary mt-3" @click="comprobacionAgregarProveedor(nombreProveedor,telefonoProveedor)">Enviar</button>
+                                <div>
+                                    <span id="telefonoIncorrectoP" style="color:red"></span>
+                                    <span id="todoCorrectoP" style="color:green"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
   </template>
   
   <style>
@@ -232,26 +271,4 @@ methods: {
   }
 
 
-
-  #botoncito{
-
-    margin-top:2rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    width:7rem;
-    height: 3.5rem;
-  }
-  #labels{
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-  }
-
-  #telefonoP, #nombreP, #nombreC , #telefonoC{
-
-   width: 500px;
-   margin: 0 auto;
-   max-width: 500px;
-   min-width: 375px
-  
-  }
   </style>
