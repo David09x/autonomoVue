@@ -8,10 +8,10 @@ data(){
     return {
         nombreCliente: "",
         telefonoCliente:"",
-        estado: "",
-        estadoP: "",
         nombreProveedor: "",
         telefonoProveedor: "",
+        estadoP: "",
+        estado: "",
 
     }
 },
@@ -38,43 +38,71 @@ methods: {
         this.estado = json
         const customId = 'custom-id'
         if(this.estado.ok){
-                //document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
+            //document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.SUCCESS, render: this.estado.descripcion});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
                 toast.success(this.estado.descripcion, {
-                     autoClose: 4000,
-                    autoClose: false, // Para que no se cierre automáticamente
-                    hideProgressBar: true, // Para ocultar la barra de progreso
-                    toastId: customId,
-                    pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
                 });
-          
-            }else{
-                var comprobanteCorrecto =  document.getElementById("telefonoCorrecto");
-                if(comprobanteCorrecto == null){
-                document.getElementById("todoCorrecto").innerHTML = ""
-                toast.error(this.estado.descripcion, {
-                            autoClose: 4000,
-                            limit: 2,
-                            toastId: customId,
-                            pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
-                        });
-
-                    document.getElementById("telefonoIncorrecto").innerHTML = this.estado.descripcion
-                }else{
-                    toast.success(this.estado.descripcion, {
-                            autoClose: false, // Para que no se cierre automáticamente
-                            hideProgressBar: true, // Para ocultar la barra de progreso
-                            toastId: customId,
-                            pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
-                        });
-
-                    document.getElementById("telefonoCorrecto").innerHTML = ""
-                document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
-
-                }
             }
+            this.nombreCliente=  ""
+            this.telefonoCliente= ""
+            this.nombreProveedor= ""
+            this.telefonoProveedor= ""
+        }else{
+            var comprobanteCorrecto =  document.getElementById("telefonoCorrecto");
+            if(comprobanteCorrecto == null){
+            document.getElementById("todoCorrecto").innerHTML = ""
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.ERROR, render: this.estado.descripcion});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.error(this.estado.descripcion, {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
+            
+
+                document.getElementById("telefonoIncorrecto").innerHTML = this.estado.descripcion
+            }else{
+            
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.SUCCESS, render: this.estado.descripcion});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.success(this.estado.descripcion, {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
+            this.nombreCliente=  ""
+            this.telefonoCliente= ""
+            this.nombreProveedor= ""
+            this.telefonoProveedor= ""
+                document.getElementById("telefonoCorrecto").innerHTML = ""
+            document.getElementById("todoCorrecto").innerHTML = this.estado.descripcion
+
+            }
+        }
     })  
     },
     agregarProveedor(nombre,telefono){
@@ -87,39 +115,62 @@ methods: {
             if(this.estadoP.ok){
                 const customId = 'custom-id'
                     //document.getElementById("todoCorrectoP").innerHTML = this.estadoP.descripcion
-                    toast.success(this.estadoP.descripcion, {
-                        autoClose: false, // Para que no se cierre automáticamente
-                        hideProgressBar: true, // Para ocultar la barra de progreso
-                        toastId: customId,
+                    if (toast.isActive(customId)) {
+                    // Si hay un toast activo, cerrarlo
+                        toast.update(customId, {type: toast.TYPE.SUCCESS, render: this.estadoP.descripcion});
+                    } else {
+                        // Si no hay un toast activo, mostrar uno nuevo
+                        toast.success(this.estadoP.descripcion, {
+                        autoClose: 4000,
                         pauseOnFocusLoss: false,
-                        transition: toast.TRANSITIONS.FLIP,
-                    });
-                    document.getElementById("telefonoCorrecto").innerHTML = "proveedor agregado"
-               
+                        transition: toast.TRANSITIONS.FADE,
+                        toastId: "custom-id"
+                        });
+                    }
+                    //document.getElementById("telefonoCorrecto").innerHTML = "proveedor agregado"
+                    this.nombreCliente=  ""
+                    this.telefonoCliente= ""
+                    this.nombreProveedor= ""
+                    this.telefonoProveedor= ""
                 }else{
                     var comprobanteCorrecto =  document.getElementById("telefonoCorrectoP");
                     if(comprobanteCorrecto == null){
                     document.getElementById("todoCorrectoP").innerHTML = ""
+                        
                         const customId = 'custom-id'
-                        toast.error(this.estadoP.descripcion, {
+                        // Verificar si hay un toast activo con el ID "custom-id"
+                        if (toast.isActive(customId)) {
+                        // Si hay un toast activo, cerrarlo
+                            toast.update(customId, {type: toast.TYPE.ERROR, render: this.estadoP.descripcion});
+                        } else {
+                            // Si no hay un toast activo, mostrar uno nuevo
+                            toast.error(this.estadoP.descripcion, {
                             autoClose: 4000,
-                            limit: 2,
-                            toastId: customId,
                             pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
-                        });
-
+                            transition: toast.TRANSITIONS.FADE,
+                            toastId: "custom-id"
+                            });
+                        }
                         document.getElementById("telefonoIncorrectoP").innerHTML = this.estadoP.descripcion
                     }else{
                         const customId = 'custom-id'
+                    //document.getElementById("todoCorrectoP").innerHTML = this.estadoP.descripcion
+                    if (toast.isActive(customId)) {
+                    // Si hay un toast activo, cerrarlo
+                        toast.update(customId, {type: toast.TYPE.SUCCESS, render: this.estadoP.descripcion});
+                    } else {
+                        // Si no hay un toast activo, mostrar uno nuevo
                         toast.success(this.estadoP.descripcion, {
-                            autoClose: false, // Para que no se cierre automáticamente
-                            hideProgressBar: true, // Para ocultar la barra de progreso
-                            toastId: customId,
-                            pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
+                        autoClose: 4000,
+                        pauseOnFocusLoss: false,
+                        transition: toast.TRANSITIONS.FADE,
+                        toastId: "custom-id"
                         });
-
+                    }
+                        this.nombreCliente=  ""
+                        this.telefonoCliente= ""
+                        this.nombreProveedor= ""
+                        this.telefonoProveedor= ""
                         document.getElementById("telefonoCorrectoP").innerHTML = ""
                     document.getElementById("todoCorrectoP").innerHTML = this.estadoP.descripcion
 
@@ -130,26 +181,41 @@ methods: {
     comprobacionAgregarCliente(nombre,telefono){
         const customId = 'custom-id'
        if((nombre == "" || telefono == "")){
-        toast.error("los campos o algun campo esta vacio", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
-        this.nombreCliente = ""
-        this.telefonoCliente =  ""
+        const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.ERROR, render: "los campos o algun campo esta vacio"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.error("los campos o algun campo esta vacio", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
+            this.nombreCliente=  ""
+            this.telefonoCliente= ""
+       
        }else{
         document.getElementById("telefonoIncorrecto").innerHTML = ""
          if(this.telefonoCliente.length !== 9 || isNaN(this.telefonoCliente)){
-            
-            toast.error("el telefono debe ser de 9 digitos y numerico", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.ERROR, render: "el telefono debe ser de 9 digitos y numerico"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.error("el telefono debe ser de 9 digitos y numerico", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
+
             document.getElementById("nombreC").value = ""
             document.getElementById("telefonoC").value = ""
             document.getElementById("telefonoIncorrecto").innerHTML = "el telefono debe ser de 9 digitos y numerico"
@@ -170,25 +236,39 @@ methods: {
     comprobacionAgregarProveedor(nombre,telefono){
         const customId = 'custom-id'
         if((nombre == "" || telefono == "")){
-            toast.error("los campos o algun campo esta vacio", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.ERROR, render: "los campos o algun campo esta vacio"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.error("los campos o algun campo esta vacio", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
         this.nombreProveedor = ""
         this.telefonoProveedor =  ""
        }else{
         document.getElementById("telefonoIncorrectoP").innerHTML = ""
          if(this.telefonoProveedor.length !== 9 || isNaN(this.telefonoProveedor)){
-            toast.error("el telefono debe ser de 9 digitos y numerico", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+            const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.ERROR, render: "el telefono debe ser de 9 digitos y numerico"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.error("el telefono debe ser de 9 digitos y numerico", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
 
          }else{
             document.getElementById("telefonoIncorrectoP").innerHTML = ""

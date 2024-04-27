@@ -45,14 +45,20 @@ export default {
         this.ponerTabla(this.estado.citasEncontradas)
         return json;
       } else{
-        const customId = 'custom-id';
-        toast.warning("No hay citas", {
-          autoClose: 4000,
-          limit: 2,
-          toastId: customId,
-          pauseOnFocusLoss: false,
-          transition: toast.TRANSITIONS.FLIP,
-        });
+        const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.WARNING, render:"No hay citas"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.warning("No hay citas", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
          var recogerTabla =  document.getElementById("tablaCitas").innerHTML = ""
          return json;
       }
@@ -68,14 +74,20 @@ export default {
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
-          const customId = 'custom-id';
-          toast.success("Se borro la cita correctamente", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+          const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.SUCCESS, render:"se borro la cita correctamente"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.success("se borro la cita correctamente", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
           this.getCitas2(this.fechaGuardada)
         })
       }

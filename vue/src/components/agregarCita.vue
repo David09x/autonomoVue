@@ -50,13 +50,20 @@ methods: {
             const json = await response.json()
             this.agregarPobjeto = json
             const customId = 'custom-id'
-            toast.success("se agrego con exito el gasto", {
-                autoClose: false, // Para que no se cierre automáticamente
-                hideProgressBar: true, // Para ocultar la barra de progreso
-                toastId: customId,
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.SUCCESS, render:"se agrego con exito el gasto"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.success("se agrego con exito el gasto", {
+                autoClose: 4000,
                 pauseOnFocusLoss: false,
-                transition: toast.TRANSITIONS.FLIP,
-            });
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
+            
         }catch(error){
             console.error("error al intentar agregar gasto", error)
         }
@@ -101,13 +108,19 @@ methods: {
             idCliente+ "/" + idServicio + "/" + hora + "/" + fecha)
             const json = await response.json()
             const customId = 'custom-id'
-            toast.success("se agrego con exito la cita", {
-                autoClose: false, // Para que no se cierre automáticamente
-                hideProgressBar: true, // Para ocultar la barra de progreso
-                toastId: customId,
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+                toast.update(customId, {type: toast.TYPE.SUCCESS, render:"se agrego con exito la cita"});
+            } else {
+                // Si no hay un toast activo, mostrar uno nuevo
+                toast.success("se agrego con exito la cita", {
+                autoClose: 4000,
                 pauseOnFocusLoss: false,
-                transition: toast.TRANSITIONS.FLIP,
-            });
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+                });
+            }
             //alert("se agrego con exito")
         }catch(error){
             console.error("error al intentar buscar cita", error)
@@ -126,44 +139,72 @@ methods: {
                         await this.buscarIdCliente(numero)
                         await this.anyadirCita(this.idClienteBusqueda,this.servicioId,hora,fecha)
                     }else{
-                        //alert(this.comprobarCitaAntes.descripcion)
-                        toast.error(this.comprobarCitaAntes.descripcion, {
-                            autoClose: 4000,
-                            limit: 2,
-                            toastId: customId,
-                            pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
-                        });
+                     
+                      const customId = 'custom-id'
+                      // Verificar si hay un toast activo con el ID "custom-id"
+                      if (toast.isActive(customId)) {
+                      // Si hay un toast activo, cerrarlo
+                          toast.update(customId, {type: toast.TYPE.ERROR, render:this.comprobarCitaAntes.descripcion});
+                      } else {
+                          // Si no hay un toast activo, mostrar uno nuevo
+                          toast.error(this.comprobarCitaAntes.descripcion, {
+                          autoClose: 4000,
+                          pauseOnFocusLoss: false,
+                          transition: toast.TRANSITIONS.FADE,
+                          toastId: "custom-id"
+                          });
+                      }
                     }
                 }else{
-                    //alert("tienes que agregar todos los campos")
-                    toast.error("tienes que agregar todos los campos", {
-                            autoClose: 4000,
-                            limit: 2,
-                            toastId: customId,
-                            pauseOnFocusLoss: false,
-                            transition: toast.TRANSITIONS.FLIP,
-                        });
+                 
+                  const customId = 'custom-id'
+                  // Verificar si hay un toast activo con el ID "custom-id"
+                  if (toast.isActive(customId)) {
+                  // Si hay un toast activo, cerrarlo
+                      toast.update(customId, {type: toast.TYPE.ERROR, render:"tienes que agregar todos los campos"});
+                  } else {
+                      // Si no hay un toast activo, mostrar uno nuevo
+                      toast.error("tienes que agregar todos los campos", {
+                      autoClose: 4000,
+                      pauseOnFocusLoss: false,
+                      transition: toast.TRANSITIONS.FADE,
+                      toastId: "custom-id"
+                      });
+                  }
                 }
             }else{
-                //alert(this.telefonoC.descripcion);
-                toast.error(this.telefonoC.descripcion, {
-                    autoClose: 4000,
-                    limit: 2,
-                    toastId: customId,
-                    pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
-                });
+             
+              const customId = 'custom-id'
+              // Verificar si hay un toast activo con el ID "custom-id"
+              if (toast.isActive(customId)) {
+              // Si hay un toast activo, cerrarlo
+                  toast.update(customId, {type: toast.TYPE.ERROR, render: this.telefonoC.descripcion});
+              } else {
+                  // Si no hay un toast activo, mostrar uno nuevo
+                  toast.error(this.telefonoC.descripcion, {
+                  autoClose: 4000,
+                  pauseOnFocusLoss: false,
+                  transition: toast.TRANSITIONS.FADE,
+                  toastId: "custom-id"
+                  });
+              }
             }
         }else{
-            //alert("el telefono tiene que ser de 9 digitos")
+
+        const customId = 'custom-id'
+        // Verificar si hay un toast activo con el ID "custom-id"
+        if (toast.isActive(customId)) {
+        // Si hay un toast activo, cerrarlo
+            toast.update(customId, {type: toast.TYPE.ERROR, render: "el telefono tiene que ser de 9 digitos"});
+        } else {
+            // Si no hay un toast activo, mostrar uno nuevo
             toast.error("el telefono tiene que ser de 9 digitos", {
-                autoClose: 4000,
-                limit: 2,
-                toastId: customId,
-                pauseOnFocusLoss: false,
-                transition: toast.TRANSITIONS.FLIP,
+            autoClose: 4000,
+            pauseOnFocusLoss: false,
+            transition: toast.TRANSITIONS.FADE,
+            toastId: "custom-id"
             });
+        }
         }
     },
     async agregarProveedor(precio,fecha,descripcion){
@@ -171,13 +212,21 @@ methods: {
       if(precio != "" && fecha != "" && descripcion != "" && this.proveedorId >0){
          await this.guardarGasto(this.proveedorId,descripcion,precio.toFixed(2),fecha)
       }else{
-        toast.error("tienes algun campo vacio", {
-                autoClose: 4000,
-                limit: 2,
-                toastId: customId,
-                pauseOnFocusLoss: false,
-                transition: toast.TRANSITIONS.FLIP,
+      
+        const customId = 'custom-id'
+        // Verificar si hay un toast activo con el ID "custom-id"
+        if (toast.isActive(customId)) {
+        // Si hay un toast activo, cerrarlo
+            toast.update(customId, {type: toast.TYPE.ERROR, render: "tienes algun campo vacio"});
+        } else {
+            // Si no hay un toast activo, mostrar uno nuevo
+            toast.error("tienes algun campo vacio", {
+            autoClose: 4000,
+            pauseOnFocusLoss: false,
+            transition: toast.TRANSITIONS.FADE,
+            toastId: "custom-id"
             });
+        }
       }
     },
 
@@ -226,7 +275,7 @@ methods: {
           <div class="card border-0 rounded-3 shadow-lg">
             <div class="card-body p-5">
               <div class="text-center">
-                <div class="h1 fw-light">Agregar Proveedores</div>
+                <div class="h1 fw-light">Agregar Gasto</div>
               </div>
               <form @submit.prevent="submitForm">
                 <div class="mb-3">

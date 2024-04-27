@@ -38,13 +38,20 @@ methods: {
     ensenyarBeneficios(fecha1,fecha2){
       const customId = 'custom-id'
         if(fecha1 == "" || fecha2 == ""){
-          toast.error("las fechas no pueden estar vacias", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+          const customId = 'custom-id'
+            // Verificar si hay un toast activo con el ID "custom-id"
+            if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+              toast.update(customId, {type: toast.TYPE.ERROR , render: "las fechas  no pueden estar vacias"});
+            } else {
+              // Si no hay un toast activo, mostrar uno nuevo
+              toast.error("las fechas  no pueden estar vacias", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+              });
+            }
         }else{
             var fecha_formateada = fecha1.replace(/-/g, '');
             var fecha_formateada2 = fecha2.replace(/-/g, '');
@@ -62,26 +69,39 @@ methods: {
                 this.beneficio = json.beneficios;
                 this.agregarSpan(this.beneficio,"obtenerIngresos","ingresosObtenidos")
                 if(this.beneficio!= "" && this.gastos != ""){
-                  console.log(this.gastos )
-                  console.log(this.beneficio)
-                 toast.info("total es " + (this.beneficio-this.gastos), {
-                    position: toast.POSITION.TOP_CENTER, // Para mostrar el toast desde arriba
-                    autoClose: false, // Para que no se cierre automáticamente
-                    hideProgressBar: true, // Para ocultar la barra de progreso
-                    toastId: customId,
-                    pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
-                  });
+                  const customId = 'custom-id'
+                  if (toast.isActive(customId)) {
+                  // Si hay un toast activo, cerrarlo
+                    toast.update(customId, {  type: toast.TYPE.INFO ,render: "total es " + (this.beneficio-this.gastos)});
+                  } else {
+                    // Si no hay un toast activo, mostrar uno nuevo
+                    toast.info("total es " + (this.beneficio-this.gastos), {
+                      position: toast.POSITION.TOP_CENTER, // Para mostrar el toast desde arriba
+                      autoClose: false, // Para que no se cierre automáticamente
+                      closeButton: false, // Para ocultar el botón de cierre
+                      hideProgressBar: true, // Para ocultar la barra de progreso
+                      toastId: customId,
+                      pauseOnFocusLoss: false,
+                      transition: toast.TRANSITIONS.FLIP,
+                    });
+                  }
                 }
               })
             }else{
-              toast.error("las fecha primera no puede ser mayor que la 2", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-              });
+              const customId = 'custom-id'
+                // Verificar si hay un toast activo con el ID "custom-id"
+                if (toast.isActive(customId)) {
+                // Si hay un toast activo, cerrarlo
+                  toast.update(customId, {type: toast.TYPE.ERROR , render: "las fecha primera no puede ser mayor que la 2"});
+                } else {
+                  // Si no hay un toast activo, mostrar uno nuevo
+                  toast.error("las fecha primera no puede ser mayor que la 2", {
+                    autoClose: 4000,
+                    pauseOnFocusLoss: false,
+                    transition: toast.TRANSITIONS.FADE,
+                    toastId: "custom-id"
+                  });
+                }
             }
           
         }
@@ -90,13 +110,20 @@ methods: {
     ensenyarGastos(fecha1,fecha2){
       const customId = 'custom-id'
         if(fecha1 == "" || fecha2 == ""){
-          toast.error("las fechas no pueden estar vacias", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-            });
+          const customId = 'custom-id'
+          // Verificar si hay un toast activo con el ID "custom-id"
+          if (toast.isActive(customId)) {
+            // Si hay un toast activo, cerrarlo
+              toast.update(customId, {type: toast.TYPE.ERROR , render: "no puede estar vacio las fechas"});
+            } else {
+              // Si no hay un toast activo, mostrar uno nuevo
+              toast.error("no puede estar vacio las fechas", {
+                autoClose: 4000,
+                pauseOnFocusLoss: false,
+                transition: toast.TRANSITIONS.FADE,
+                toastId: "custom-id"
+              });
+            }
         }else{
           var fecha_formateada = fecha1.replace(/-/g, '');
             var fecha_formateada2 = fecha2.replace(/-/g, '');
@@ -113,25 +140,41 @@ methods: {
                 this.gastos = json.gastos;
                 this.agregarSpan(this.gastos,"obtenerGastos","gastosObtenidos")
                 if(this.gastos != "" && this.beneficio != ""){
-                  toast.info("total es " + (this.beneficio-this.gastos), {
-                    position: toast.POSITION.TOP_CENTER, // Para mostrar el toast desde arriba
-                    autoClose: false, // Para que no se cierre automáticamente
-                    closeButton: false, // Para ocultar el botón de cierre
-                    hideProgressBar: true, // Para ocultar la barra de progreso
-                    toastId: customId,
-                    pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
-                  });
+                  const customId = 'custom-id'
+                  if (toast.isActive(customId)) {
+                  // Si hay un toast activo, cerrarlo
+                    toast.update(customId, {type: toast.TYPE.INFO , render: "total es " + (this.beneficio-this.gastos)});
+                  } else {
+                    // Si no hay un toast activo, mostrar uno nuevo
+                    toast.info("total es " + (this.beneficio-this.gastos), {
+                      position: toast.POSITION.TOP_CENTER, // Para mostrar el toast desde arriba
+                      autoClose: false, // Para que no se cierre automáticamente
+                      closeButton: false, // Para ocultar el botón de cierre
+                      hideProgressBar: true, // Para ocultar la barra de progreso
+                      toastId: customId,
+                      pauseOnFocusLoss: false,
+                      transition: toast.TRANSITIONS.FLIP,
+                    });
+                  
+                  }
                 }
               })
             }else{
-              toast.error("las fecha primera no puede ser mayor que la 2", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-              });
+                const customId = 'custom-id'
+                // Verificar si hay un toast activo con el ID "custom-id"
+                if (toast.isActive(customId)) {
+                // Si hay un toast activo, cerrarlo
+                  toast.update(customId, {type: toast.TYPE.ERROR, render: "las fecha primera no puede ser mayor que la 2"});
+                } else {
+                  // Si no hay un toast activo, mostrar uno nuevo
+                  toast.error("las fecha primera no puede ser mayor que la 2", {
+                    autoClose: 4000,
+                    pauseOnFocusLoss: false,
+                    transition: toast.TRANSITIONS.FADE,
+                    toastId: "custom-id"
+                  });
+                }
+            
             }
         }
     },
@@ -155,50 +198,58 @@ methods: {
           divAnyadir.appendChild(span2)
        }
     },
-    calcularGastos(){
-     var spanConprobar =  document.getElementById("calculoTotal")
-     var span2 =  document.createElement("span");
-     if(spanConprobar == null){
+    calcularGastos() {
      
-       if(this.beneficio2 != "" && this.gastos2 != ""){
-         span2.id = "calculoTotal"
-         var divGastosTotales = document.getElementById("gastosIngresoTotal")
-         var calculo = (this.beneficio2- this.gastos2).toFixed(2) 
-         span2.textContent = calculo
-         divGastosTotales.appendChild(span2)
-         console.log(calculo)
- 
-       }else{
-        toast.error("Añade el campo vacio por favor", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-              });
-       }
-     }else{
-      if(this.beneficio2 != "" && this.gastos2 != ""){
-
-          var span3  =  document.getElementById("calculoTotal");
-          span3.textContent = ""
-         var divGastosTotales = document.getElementById("gastosIngresoTotal")
-         var calculo = (this.beneficio2- this.gastos2).toFixed(2) 
-         span.textContent = calculo
-         divGastosTotales.appendChild(span2)
-         console.log(calculo)
- 
-       }else{
-          toast.error("Añade el campo vacio por favor", {
-              autoClose: 4000,
-              limit: 2,
-              toastId: customId,
-              pauseOnFocusLoss: false,
-              transition: toast.TRANSITIONS.FLIP,
-           });
-       }
-     }
+      var spanConprobar = document.getElementById("calculoTotal");
+  if (spanConprobar) {
+    // Si el span ya existe, actualizar su contenido
+    if (this.beneficio2 !== "" && this.gastos2 !== "") {
+      var calculo = (this.beneficio2 - this.gastos2).toFixed(2);
+      spanConprobar.textContent = calculo;
+    } else {
+      const customId = 'custom-id'
+       // Verificar si hay un toast activo con el ID "custom-id"
+      if (toast.isActive(customId)) {
+      // Si hay un toast activo, cerrarlo
+        toast.update(customId, { render: "Por favor, completa ambos campos"});
+      } else {
+        // Si no hay un toast activo, mostrar uno nuevo
+        toast.error("Por favor, completa ambos campos", {
+          autoClose: 4000,
+          pauseOnFocusLoss: false,
+          transition: toast.TRANSITIONS.FADE,
+          toastId: "custom-id"
+        });
+      }
     }
+  } else {
+    // Si el span no existe, crear uno nuevo y agregarlo al contenedor
+    if (this.beneficio2 !== "" && this.gastos2 !== "") {
+      var span = document.createElement("span");
+      span.id = "calculoTotal";
+      var divGastosTotales = document.getElementById("gastosIngresoTotal");
+      var calculo = (this.beneficio2 - this.gastos2).toFixed(2);
+      span.textContent = calculo;
+      divGastosTotales.appendChild(span);
+    } else {
+        const customId = 'custom-id'
+    // Verificar si hay un toast activo con el ID "custom-id"
+      if (toast.isActive(customId)) {
+      // Si hay un toast activo, cerrarlo
+        toast.update(customId, { render: "Por favor, completa ambos campos"});
+      } else {
+        // Si no hay un toast activo, mostrar uno nuevo
+        toast.error("Por favor, completa ambos campos", {
+          autoClose: 4000,
+          pauseOnFocusLoss: false,
+          transition: toast.TRANSITIONS.FADE,
+          toastId: "custom-id"
+        });
+      }
+    }
+  }
+}
+
 
     
   }
@@ -280,12 +331,6 @@ methods: {
     color: #888;
   }
 
-  #fecha1,#fecha2,#fecha3,#fecha4{
-    width: 30vw;
-    text-align: center;
-    font-size: 25px;
-    margin: 0 auto;
-  }
 
   #obtenerIngresos{
     margin-top: 1rem;

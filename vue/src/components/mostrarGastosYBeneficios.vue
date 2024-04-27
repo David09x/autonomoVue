@@ -39,7 +39,6 @@ export default {
             var partes_fecha2 = fecha_formateada2.split('-');
             var fechaCalcular = partes_fecha[0];
             var fechaCalcular2 = partes_fecha2[0];
-            const customId = 'custom-id'
             if(fecha != "" && fecha2 != ""){
                 if(fechaCalcular <= fechaCalcular2){
                      try{
@@ -54,13 +53,20 @@ export default {
                             var recogerTabla =  document.getElementById("tablaGastosBeneficios")
 
                             recogerTabla.innerHTML = ""
+                            const customId = 'custom-id'
+                            // Verificar si hay un toast activo con el ID "custom-id"
+                            if (toast.isActive(customId)) {
+                            // Si hay un toast activo, cerrarlo
+                            toast.update(customId, {type: toast.TYPE.INFO, render: "no hay gastos entre las fechas seleccionadas"});
+                            } else {
+                            // Si no hay un toast activo, mostrar uno nuevo
                             toast.info("no hay gastos entre las fechas seleccionadas", {
-                                autoClose: 6000,
-                                limit: 2,
-                                toastId: customId,
+                                autoClose: 4000,
                                 pauseOnFocusLoss: false,
-                                transition: toast.TRANSITIONS.FLIP,
+                                transition: toast.TRANSITIONS.FADE,
+                                toastId: "custom-id"
                             });
+                            }
                         }
                     }catch(error){
                         console.error("error al intentar agregar gasto", error)
@@ -70,22 +76,36 @@ export default {
                     var recogerTabla =  document.getElementById("tablaGastosBeneficios")
 
                     recogerTabla.innerHTML = ""
-                    toast.error("la fecha 1 no puede ser mayor a la 2", {
+                    const customId = 'custom-id'
+                    // Verificar si hay un toast activo con el ID "custom-id"
+                    if (toast.isActive(customId)) {
+                    // Si hay un toast activo, cerrarlo
+                    toast.update(customId, {type: toast.TYPE.ERROR, render: "la fecha primera  no puede ser mayor a la 2"});
+                    } else {
+                    // Si no hay un toast activo, mostrar uno nuevo
+                    toast.error("las fecha primera no puede ser mayor que la 2", {
                         autoClose: 4000,
-                        limit: 2,
-                        toastId: customId,
                         pauseOnFocusLoss: false,
-                        transition: toast.TRANSITIONS.FLIP,
+                        transition: toast.TRANSITIONS.FADE,
+                        toastId: "custom-id"
                     });
+                    }
                 }
             }else{
-                toast.error("las fechas no pueden estar vacias", {
+                const customId = 'custom-id'
+                // Verificar si hay un toast activo con el ID "custom-id"
+                if (toast.isActive(customId)) {
+                // Si hay un toast activo, cerrarlo
+                  toast.update(customId, {type: toast.TYPE.ERROR, render: "las fechas no pueden estar vacias"});
+                } else {
+                  // Si no hay un toast activo, mostrar uno nuevo
+                  toast.error("las fechas no pueden estar vacias", {
                     autoClose: 4000,
-                    limit: 2,
-                    toastId: customId,
                     pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
-                });
+                    transition: toast.TRANSITIONS.FADE,
+                    toastId: "custom-id"
+                  });
+                }
             }
         },
 
@@ -99,7 +119,6 @@ export default {
             var partes_fecha2 = fecha_formateada2.split('-');
             var fechaCalcular = partes_fecha[0];
             var fechaCalcular2 = partes_fecha2[0];
-            const customId = 'custom-id'
 
             if(fecha != "" && fecha2 != ""){
                 
@@ -116,13 +135,20 @@ export default {
                         }else{
                             var recogerTabla =  document.getElementById("tablaGastosBeneficios")
                             recogerTabla.innerHTML = ""
+                            const customId = 'custom-id'
+                            // Verificar si hay un toast activo con el ID "custom-id"
+                            if (toast.isActive(customId)) {
+                            // Si hay un toast activo, cerrarlo
+                            toast.update(customId, {type: toast.TYPE.INFO, render: "no hay beneficios entre las fechas seleccionadas"});
+                            } else {
+                            // Si no hay un toast activo, mostrar uno nuevo
                             toast.info("no hay beneficios entre las fechas seleccionadas", {
-                                autoClose: 6000,
-                                limit: 2,
-                                toastId: customId,
+                                autoClose: 4000,
                                 pauseOnFocusLoss: false,
-                                transition: toast.TRANSITIONS.FLIP,
+                                transition: toast.TRANSITIONS.FADE,
+                                toastId: "custom-id"
                             });
+                            }
                         }
                     }catch(error){
                         console.error("error al intentar agregar gasto", error)
@@ -130,173 +156,201 @@ export default {
                 }else{
                     var recogerTabla =  document.getElementById("tablaGastosBeneficios")
                     recogerTabla.innerHTML = ""
-                    toast.error("la fecha 1 no puede ser mayor a la 2", {
+                        const customId = 'custom-id'
+                    // Verificar si hay un toast activo con el ID "custom-id"
+                    if (toast.isActive(customId)) {
+                    // Si hay un toast activo, cerrarlo
+                    toast.update(customId, {type: toast.TYPE.ERROR, render: "la fecha primera  no puede ser mayor a la 2"});
+                    } else {
+                    // Si no hay un toast activo, mostrar uno nuevo
+                    toast.error("las fecha primera no puede ser mayor que la 2", {
                         autoClose: 4000,
-                        limit: 2,
-                        toastId: customId,
                         pauseOnFocusLoss: false,
-                        transition: toast.TRANSITIONS.FLIP,
+                        transition: toast.TRANSITIONS.FADE,
+                        toastId: "custom-id"
                     });
+                    }
                 }
             }else{
-                toast.error("las fechas no pueden estar vacias", {
+              
+                const customId = 'custom-id'
+                // Verificar si hay un toast activo con el ID "custom-id"
+                if (toast.isActive(customId)) {
+                // Si hay un toast activo, cerrarlo
+                  toast.update(customId, {type: toast.TYPE.ERROR, render: "las fechas no pueden estar vacias"});
+                } else {
+                  // Si no hay un toast activo, mostrar uno nuevo
+                  toast.error("las fechas no pueden estar vacias", {
                     autoClose: 4000,
-                    limit: 2,
-                    toastId: customId,
                     pauseOnFocusLoss: false,
-                    transition: toast.TRANSITIONS.FLIP,
-                });
+                    transition: toast.TRANSITIONS.FADE,
+                    toastId: "custom-id"
+                  });
+                }
             }
         },
-        ponerTablaGastos(datos){
-
-        var recogerTabla =  document.getElementById("tablaGastosBeneficios")
-
-        recogerTabla.innerHTML = ""
-
-        var tabla = document.createElement("table")
-        tabla.className = "table table-striped"
-        var thead = document.createElement("thead")
-        var encabezadoNombre =  document.createElement("tr")
-
-        var nombrePersona = document.createElement("th")
-        nombrePersona.setAttribute("scope","col")
-        nombrePersona.textContent = "Nombre"
-        var nombreTipo = document.createElement("th")
-        nombreTipo.setAttribute("scope","col")
-        nombreTipo.textContent = document.textContent = "descripcion"
-        var hora =  document.createElement("th")
-        hora.setAttribute("scope","col")
-        hora.textContent = document.textContent =  "precio"
-        var fecha = document.createElement("th")
-        fecha.setAttribute("scope","col")
-        fecha.textContent =  "fecha"
-
-        encabezadoNombre.appendChild(nombrePersona)
-        encabezadoNombre.appendChild(nombreTipo)
-        encabezadoNombre.appendChild(hora)
-        encabezadoNombre.appendChild(fecha)
-
-        thead.appendChild(encabezadoNombre)
-
-        tabla.appendChild(thead)
-
-        var tbody = document.createElement("tbody");
-
-
         
-        for (let i = 0; i < datos.length; i++) {
-            var fila= document.createElement("tr");
-            var nombre = document.createElement("td");
-            nombre.textContent =  datos[i]['nombre'];
-            var tipo = document.createElement("td");
-            tipo.textContent =  datos[i]['descripcion']
-            var hora = document.createElement("td");
-            hora.textContent =  datos[i]['precio']
-            var precio= document.createElement("td");
-            precio.textContent  =  datos[i]['fecha']
+        ponerTablaGastos(datos) {
+            var recogerTabla = document.getElementById("tablaGastosBeneficios");
+            recogerTabla.innerHTML = "";
 
-            fila.appendChild(nombre)
-            fila.appendChild(tipo)
-            fila.appendChild(hora)
-            fila.appendChild(precio)
+            var tabla = document.createElement("table");
+            tabla.className = "table table-striped";
+            var thead = document.createElement("thead");
+            var encabezadoNombre = document.createElement("tr");
 
-            tbody.appendChild(fila)
-        } 
-        tabla.appendChild(tbody)
-        recogerTabla.appendChild(tabla);
+            var nombrePersona = document.createElement("th");
+            nombrePersona.setAttribute("scope", "col");
+            nombrePersona.textContent = "Nombre";
+            var nombreTipo = document.createElement("th");
+            nombreTipo.setAttribute("scope", "col");
+            nombreTipo.textContent = "descripcion";
+            var hora = document.createElement("th");
+            hora.setAttribute("scope", "col");
+            hora.textContent = "precio";
+            var fecha = document.createElement("th");
+            fecha.setAttribute("scope", "col");
+            fecha.textContent = "fecha";
 
-        },
-        ponerTablaBeneficios(datos){
+            encabezadoNombre.appendChild(nombrePersona);
+            encabezadoNombre.appendChild(nombreTipo);
+            encabezadoNombre.appendChild(hora);
+            encabezadoNombre.appendChild(fecha);
 
-            var recogerTabla =  document.getElementById("tablaGastosBeneficios")
-
-            recogerTabla.innerHTML = ""
-
-            var tabla = document.createElement("table")
-            tabla.className = "table table-striped"
-            var thead = document.createElement("thead")
-            var encabezadoNombre =  document.createElement("tr")
-
-            var nombrePersona = document.createElement("th")
-            nombrePersona.setAttribute("scope","col")
-            nombrePersona.textContent = "Nombre"
-            var nombreTipo = document.createElement("th")
-            nombreTipo.setAttribute("scope","col")
-            nombreTipo.textContent = document.textContent = "Hora"
-            var hora =  document.createElement("th")
-            hora.setAttribute("scope","col")
-            hora.textContent = document.textContent =  "Tipo"
-            var precio = document.createElement('th')
-            precio.setAttribute("scope","col")
-            precio.textContent =  "Precio"
-            var fecha = document.createElement("th")
-            fecha.setAttribute("scope","col")
-            fecha.textContent =  "Fecha"
-
-
-            encabezadoNombre.appendChild(nombrePersona)
-            encabezadoNombre.appendChild(nombreTipo)
-            encabezadoNombre.appendChild(hora)
-            encabezadoNombre.appendChild(precio)
-            encabezadoNombre.appendChild(fecha)
-
-            thead.appendChild(encabezadoNombre)
-
-            tabla.appendChild(thead)
+            thead.appendChild(encabezadoNombre);
+            tabla.appendChild(thead);
 
             var tbody = document.createElement("tbody");
 
+            for (let i = 0; i < datos.length; i++) {
+                var fila = document.createElement("tr");
+                var nombre = document.createElement("td");
+                nombre.textContent = datos[i]["nombre"];
+                var tipo = document.createElement("td");
+                tipo.textContent = datos[i]["descripcion"];
+                var hora = document.createElement("td");
+                hora.textContent = datos[i]["precio"];
+                var fecha = document.createElement("td");
 
+                // Formatear la fecha antes de agregarla a la celda de la tabla
+                var fechaFormateada = this.formatDate(datos[i]["fecha"]);
+                fecha.textContent = fechaFormateada;
+
+                fila.appendChild(nombre);
+                fila.appendChild(tipo);
+                fila.appendChild(hora);
+                fila.appendChild(fecha);
+
+                tbody.appendChild(fila);
+            }
+            tabla.appendChild(tbody);
+            recogerTabla.appendChild(tabla);
+        },
+
+        formatDate(fecha) {
+            // Formatear la fecha de "yyyyMMdd" a "dd-MM-yyyy"
+            var año = fecha.substring(0, 4);
+            var mes = fecha.substring(4, 6);
+            var dia = fecha.substring(6, 8);
+            return `${dia}-${mes}-${año}`;
+        },
+
+        ponerTablaBeneficios(datos) {
+            var recogerTabla = document.getElementById("tablaGastosBeneficios");
+            recogerTabla.innerHTML = "";
+
+            var tabla = document.createElement("table");
+            tabla.className = "table table-striped";
+            var thead = document.createElement("thead");
+            var encabezadoNombre = document.createElement("tr");
+
+            var nombrePersona = document.createElement("th");
+            nombrePersona.setAttribute("scope", "col");
+            nombrePersona.textContent = "Nombre";
+            var nombreTipo = document.createElement("th");
+            nombreTipo.setAttribute("scope", "col");
+            nombreTipo.textContent = "Hora";
+            var hora = document.createElement("th");
+            hora.setAttribute("scope", "col");
+            hora.textContent = "Tipo";
+            var precio = document.createElement("th");
+            precio.setAttribute("scope", "col");
+            precio.textContent = "Precio";
+            var fecha = document.createElement("th");
+            fecha.setAttribute("scope", "col");
+            fecha.textContent = "Fecha";
+
+            encabezadoNombre.appendChild(nombrePersona);
+            encabezadoNombre.appendChild(nombreTipo);
+            encabezadoNombre.appendChild(hora);
+            encabezadoNombre.appendChild(precio);
+            encabezadoNombre.appendChild(fecha);
+
+            thead.appendChild(encabezadoNombre);
+            tabla.appendChild(thead);
+
+            var tbody = document.createElement("tbody");
 
             for (let i = 0; i < datos.length; i++) {
-                var fila= document.createElement("tr");
+                var fila = document.createElement("tr");
                 var nombre = document.createElement("td");
-                nombre.textContent =  datos[i]['nombre'];
+                nombre.textContent = datos[i]["nombre"];
                 var tipo = document.createElement("td");
-                tipo.textContent =  datos[i]['hora']
+                tipo.textContent = datos[i]["hora"];
                 var hora = document.createElement("td");
-                hora.textContent =  datos[i]['tipo']
-                var precio= document.createElement("td");
-                precio.textContent  =  datos[i]['precio']
-                var fecha= document.createElement("td");
-                fecha.textContent  =  datos[i]['fecha']
+                hora.textContent = datos[i]["tipo"];
+                var precio = document.createElement("td");
+                precio.textContent = datos[i]["precio"];
+                var fecha = document.createElement("td");
 
-                fila.appendChild(nombre)
-                fila.appendChild(tipo)
-                fila.appendChild(hora)
-                fila.appendChild(precio)
-                fila.appendChild(fecha)
+                // Formatear la fecha antes de agregarla a la celda de la tabla
+                var fechaFormateada = this.formatDate(datos[i]["fecha"]);
+                fecha.textContent = fechaFormateada;
 
-                tbody.appendChild(fila)
-            } 
-            tabla.appendChild(tbody)
+                fila.appendChild(nombre);
+                fila.appendChild(tipo);
+                fila.appendChild(hora);
+                fila.appendChild(precio);
+                fila.appendChild(fecha);
+
+                tbody.appendChild(fila);
+            }
+            tabla.appendChild(tbody);
             recogerTabla.appendChild(tabla);
-
         },
     },
 }
 </script>
 
 <template>
-  
-    <div>
-    <div id="divFecha">
-        <label for="ingreso">Gastos</label>
-        <input type="date" id="fecha1" class="form-control" name="fecha-poner1" v-model="fechaGuardada1">
-        <input type="date" id="fecha2" class="form-control" name="fecha-poner2" v-model="fechaGuardada2">
-        <br>
-        <button type="submit"  class="btn btn-sm btn-primary" @click="getGastos(fechaGuardada1,fechaGuardada2)">mostrar</button>
+  <div class="row">
+    <!-- Columna para los gastos -->
+    <div class="col-md-6">
+        <div id="divGastos" class="form-group">
+            <label for="ingreso">Gastos</label>
+            <div>
+                <input type="date" id="fecha1" class="form-control" name="fecha-poner1" v-model="fechaGuardada1">
+                <input type="date" id="fecha2" class="form-control" name="fecha-poner2" v-model="fechaGuardada2">
+
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary" @click="getGastos(fechaGuardada1,fechaGuardada2)">Mostrar</button>
         </div>
-        <div>
-        <label for="ingreso">Beneficios</label>
-        <input type="date" id="fecha3" class="form-control" name="fecha-poner3" v-model="fechaGuardada3">
-        <input type="date" id="fecha4" class="form-control" name="fecha-poner4" v-model="fechaGuardada4">
-        <br>
-        <button type="submit" class="btn btn-sm btn-primary" @click="getBeneficios(fechaGuardada3,fechaGuardada4)">mostrar</button>
     </div>
+    <!-- Columna para los beneficios -->
+    <div class="col-md-6">
+        <div id="divBeneficios" class="form-group">
+            <label for="ingreso">Beneficios</label>
+            <div>
+                <input type="date" id="fecha3" class="form-control" name="fecha-poner3" v-model="fechaGuardada3">
+                <input type="date" id="fecha4" class="form-control" name="fecha-poner4" v-model="fechaGuardada4">
+            </div>
+         
+            <button type="submit" class="btn btn-sm btn-primary" @click="getBeneficios(fechaGuardada3,fechaGuardada4)">Mostrar</button>
+        </div>
     </div>
-    <div id="tablaGastosBeneficios"> </div>
+</div>
+<div id="tablaGastosBeneficios" class="mt-4"> </div>
+
 </template>
 
 <style scoped>

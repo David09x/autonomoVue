@@ -4,6 +4,7 @@ import cliente from '../components/agregarCliente.vue'
 import citas from '../components/agregarCita.vue'
 import tablasGastosIngresos from '../components/mostrarGastosYBeneficios.vue'
 import tablaCitas  from '../components/obtenerCitas.vue'
+import loginUsuario from '../components/login.vue'
 const routes = [
 
 
@@ -31,8 +32,12 @@ const routes = [
         path:'/agregarCitas',
         name: 'citasAgregar',
         component: citas
+    },
+    {
+        path:'/login',
+        name: 'login',
+        component: loginUsuario
     }
-
 
 ]
 
