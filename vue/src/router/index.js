@@ -9,7 +9,7 @@ const routes = [
 
 
     {
-        path:'/',
+        path:'/citas',
         name:'citas',
         component: tablaCitas
     },
@@ -34,7 +34,7 @@ const routes = [
         component: citas
     },
     {
-        path:'/login',
+        path:'/',
         name: 'login',
         component: loginUsuario
     }
@@ -48,5 +48,18 @@ const router = createRouter({
     history:createWebHistory('/'),
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    // Verificar si el usuario tiene un token válido en el localStorage
+    const token = localStorage.getItem('token');
+    if (to.name !== 'login' && !token) {
+      // Si la ruta no es '/login' y no hay token, redirigir al usuario a la página de inicio de sesión
+      next({ name: 'login' });
+    } else {
+      // Permitir al usuario acceder a la ruta solicitada
+      next();
+    }
+  });
+  
 
 export default router;
