@@ -15,7 +15,7 @@ export default {
 
 <template>
  
-  <Navbar v-if="$route.name !== 'login'"/>
+  <Navbar v-if="$route.name !== 'login' && $route.name !== 'paginaError'"/>
   <router-view></router-view>
 </template>
 

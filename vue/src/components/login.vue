@@ -9,10 +9,10 @@
                   <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                   <p class="text-white-50 mb-5">Please enter your login and password!</p>
                   <div data-mdb-input-init class="form-outline form-white mb-4">
-                    <input type="text" v-model="usuario" class="form-control form-control-lg" placeholder="Usuario"/>
+                    <input type="text" id="usuario" v-model="usuario" class="form-control form-control-lg" placeholder="Usuario"/>
                   </div>
                   <div data-mdb-input-init class="form-outline form-white mb-4">
-                    <input type="password" v-model="password" class="form-control form-control-lg" placeholder="Password"/>
+                    <input type="password" id="password" v-model="password" class="form-control form-control-lg" placeholder="Password"/>
                   </div>
                   <button @click="login" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5">Login</button>
                 </div>
@@ -31,6 +31,22 @@
     created() {
         // Eliminar el token del localStorage al cargar la página de login
         localStorage.removeItem('token');
+    },
+    mounted() {
+      
+      document.getElementById('usuario').addEventListener('keydown', (event) => {
+      
+        if (event.key === 'Enter') {
+          document.getElementById('password').focus();
+        }
+      });
+
+      
+      document.getElementById('password').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          this.login();
+        }
+      });
     },
     data() {
       return {
@@ -96,5 +112,9 @@
     width: 100vw;
     
   }
+
+  #usuario, #password {
+  text-align: center;
+}
 </style>
   

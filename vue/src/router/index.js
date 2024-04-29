@@ -5,6 +5,7 @@ import citas from '../components/agregarCita.vue'
 import tablasGastosIngresos from '../components/mostrarGastosYBeneficios.vue'
 import tablaCitas  from '../components/obtenerCitas.vue'
 import loginUsuario from '../components/login.vue'
+import paginaError404 from '../components/error.vue'
 const routes = [
 
 
@@ -37,6 +38,11 @@ const routes = [
         path:'/',
         name: 'login',
         component: loginUsuario
+    },
+    {
+        path: '/:catchAll(.*)',
+        name: 'paginaError',
+        component: paginaError404
     }
 
 ]
