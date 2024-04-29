@@ -1,6 +1,7 @@
 <script>
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import cargando from '../../js/cargando'
 export default {
     data(){
         return {
@@ -12,6 +13,9 @@ export default {
             gastosM:"",
             beneficiosM: ""
         }
+    },
+    mounted(){
+        this.pantalla = new cargando();
     },
     created(){
         this.getCitas()
@@ -42,6 +46,7 @@ export default {
             if(fecha != "" && fecha2 != ""){
                 if(fechaCalcular <= fechaCalcular2){
                      try{
+                        this.pantalla.contadorAumentando("Cargando ...", 2);
                         const response = await fetch("http://localhost:8000/mostrarGastosFechas/"+fecha+ "/" + fecha2)
                         const json = await response.json()
                         this.gastosM=json
@@ -70,6 +75,8 @@ export default {
                         }
                     }catch(error){
                         console.error("error al intentar agregar gasto", error)
+                    } finally {
+                        this.pantalla.borrarCargando();
                     }
                    
                 }else{
@@ -125,6 +132,7 @@ export default {
                 if(fechaCalcular <= fechaCalcular2){
                     
                     try{
+                        this.pantalla.contadorAumentando("Cargando ...",2)
                         const response = await fetch("http://localhost:8000/mostrarBeneficiosFechas/"+fecha+ "/" + fecha2)
                         const json = await response.json()
                         this.beneficiosM=json
@@ -152,6 +160,8 @@ export default {
                         }
                     }catch(error){
                         console.error("error al intentar agregar gasto", error)
+                    }finally {
+                        this.pantalla.borrarCargando();
                     }
                 }else{
                     var recogerTabla =  document.getElementById("tablaGastosBeneficios")

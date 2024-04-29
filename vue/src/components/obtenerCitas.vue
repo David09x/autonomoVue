@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import cargando from '../../js/cargando'
 
 export default {
 
@@ -11,6 +12,9 @@ export default {
       fechaGuardada: null,
       estado: null
     }
+  },
+  mounted(){
+    this.pantalla = new cargando();
   },
   created(){
     //this.getCitas()
@@ -32,8 +36,7 @@ export default {
       })
     },*/
     getCitas2(fechaDada){
-      console.log(fechaDada)
-      console.log("http://localhost:8000/mostrarCitasFecha/" + fechaDada)
+      this.pantalla.contadorAumentando("Cargando ...",2)
       fetch("http://localhost:8000/mostrarCitasFecha/" + fechaDada)
       .then((response) => response.json())
       .then((json) => {
@@ -63,6 +66,13 @@ export default {
          return json;
       }
 
+      })
+      .catch((error) => {
+        console.error("Error al obtener citas:", error);
+        // Aquí puedes manejar el error si lo necesitas
+      })
+      .finally(() => {
+        this.pantalla.borrarCargando();
       });
       
     },

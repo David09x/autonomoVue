@@ -18,7 +18,7 @@
             <router-link to="/cliente" class="nav-link">Agregar Clientes/Proveedores</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/gastosYBenefinicios" class="nav-link">Agregar Gastos/Ingresos</router-link>
+            <router-link to="/gastosYBenefinicios" class="nav-link">Mostrar Gastos/Ingresos</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/dinero" class="nav-link">Calculo</router-link>

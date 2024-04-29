@@ -1,6 +1,7 @@
 <script>
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import cargando from '../../js/cargando'
 export default {
 
 data(){
@@ -9,15 +10,18 @@ data(){
     idClienteBusqueda: "",proveedoresLista:"",proveedorId: "",precioP:"",fechaP:"",
     descripcionP:"",agregarPobjeto:""}
 },
-
+mounted(){
+  this.pantalla = new cargando();
+  this.getServicios()
+  this.getProveedores()
+},
 created(){
 //this.getCitas()
-this.getServicios()
-this.getProveedores()
 },
 methods: {
 
     getProveedores(){
+      this.pantalla.contadorAumentando("Cargando ...",1)
       fetch("http://localhost:8000/mostrarProveedoresLista")
     .then((response) => response.json())
     .then((json) => {
@@ -25,9 +29,17 @@ methods: {
         this.proveedoresLista = json.Proveedores;
         console.log(this.proveedoresLista)
     })
+    .catch((error) => {
+        console.error("Error al obtener proveedores:", error);
+        // Aquí puedes manejar el error si lo necesitas
+      })
+      .finally(() => {
+        this.pantalla.borrarCargando();
+      });
     },
 
     getCitas(){
+      
     fetch("http://localhost:8000/restaurant")
     .then((response) => response.json())
     .then((json) => {
@@ -35,14 +47,26 @@ methods: {
         this.persona = json.categorias;
         console.log(this.persona)
     })
+      .finally(() => {
+        this.pantalla.borrarCargando();
+      })
+    
     }, 
     getServicios(){
+      this.pantalla.contadorAumentando("Cargando ...",1)
         fetch("http://localhost:8000/obtenerServicios")
         .then((response) =>  response.json())
         .then((json)=> {
             this.servicios = json.servicios
             console.log(this.servicios)
         })
+        .catch((error) => {
+        console.error("Error al obtener servicios:", error);
+        // Aquí puedes manejar el error si lo necesitas
+      })
+      .finally(() => {
+        this.pantalla.borrarCargando();
+      })
     },
     async guardarGasto(idProveedor,descripcion,precio,fecha){
       try{
